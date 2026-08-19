@@ -485,85 +485,124 @@ export default function Home() {
         </section>
 
         {/* Scene 06: MUCIZE BAHCE (GAME) */}
-        <section className="h-[100vh] flex flex-col items-center justify-center px-4 md:px-24 relative overflow-hidden">
+        <section className="h-[100vh] w-full flex flex-col items-center justify-center relative overflow-hidden">
           
           <div 
             ref={(el) => { sectionRefs.current[5] = el; }}
-            className="w-full max-w-5xl will-change-transform will-change-opacity relative z-10 pointer-events-auto"
+            className="w-full h-full will-change-transform will-change-opacity relative z-10 pointer-events-auto"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            {/* Banner Container */}
-            <div className="relative w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row bg-[#45583b]">
+            {/* Full Screen Banner Container */}
+            <div className="relative w-full h-full overflow-hidden flex flex-col md:flex-row bg-[#45583b]">
               
-              {/* Animated Butterflies Layer */}
-              <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
-                {[...Array(7)].map((_, i) => (
+              {/* Animated 3D Butterflies Layer */}
+              <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden" style={{ perspective: '1000px' }}>
+                {[...Array(8)].map((_, i) => (
                   <div 
                     key={i}
-                    className="absolute w-4 h-4 md:w-5 md:h-5"
+                    className="absolute"
                     style={{
-                      left: `${40 + Math.random() * 50}%`,
-                      top: `${20 + Math.random() * 60}%`,
-                      animation: `flyButterfly ${8 + Math.random() * 6}s ease-in-out infinite, flutter ${0.05 + Math.random() * 0.05}s alternate infinite`,
-                      animationDelay: `-${Math.random() * 10}s`
+                      left: `${20 + Math.random() * 60}%`,
+                      top: `${10 + Math.random() * 80}%`,
+                      animation: `flyButterfly ${15 + Math.random() * 10}s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
+                      animationDelay: `-${Math.random() * 20}s`,
+                      transformStyle: 'preserve-3d'
                     }}
                   >
-                    {/* SVG Butterfly */}
-                    <svg viewBox="0 0 24 24" fill="#a8d592" className="w-full h-full opacity-90 drop-shadow-lg">
-                      <path d="M12,12 C10,8 4,2 4,10 C4,14 10,12 12,12 C14,12 20,14 20,10 C20,2 14,8 12,12 Z M12,12 C10,16 4,22 4,14 C4,10 10,12 12,12 C14,12 20,10 20,14 C20,22 14,16 12,12 Z"/>
-                    </svg>
+                    <div 
+                      className="butterfly-wrapper" 
+                      style={{ 
+                        transform: `scale(${0.4 + Math.random() * 0.5}) rotateZ(${Math.random() * 360}deg) rotateX(${20 + Math.random() * 40}deg)` 
+                      }}
+                    >
+                      <div className="wing left-wing"></div>
+                      <div className="wing right-wing"></div>
+                    </div>
                   </div>
                 ))}
               </div>
 
               {/* CSS Animations defined in a style tag */}
               <style dangerouslySetInnerHTML={{__html: `
-                @keyframes flyButterfly {
-                  0% { transform: translate(0, 0) rotate(-10deg); }
-                  25% { transform: translate(-40px, -30px) rotate(-30deg); }
-                  50% { transform: translate(-20px, -60px) rotate(10deg); }
-                  75% { transform: translate(30px, -40px) rotate(40deg); }
-                  100% { transform: translate(0, 0) rotate(-10deg); }
+                .butterfly-wrapper {
+                  position: relative;
+                  width: 40px;
+                  height: 40px;
+                  transform-style: preserve-3d;
                 }
-                @keyframes flutter {
-                  0% { scale: 1 1; }
-                  100% { scale: 0.1 1; }
+                .wing {
+                  position: absolute;
+                  width: 15px;
+                  height: 30px;
+                  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(168, 213, 146, 0.8));
+                  border: 1px solid rgba(255,255,255,0.4);
+                  border-radius: 50% 10% 50% 30%;
+                  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+                  top: 5px;
+                }
+                .left-wing {
+                  left: 5px;
+                  transform-origin: right center;
+                  animation: flap-left 0.12s infinite alternate ease-in-out;
+                }
+                .right-wing {
+                  left: 20px;
+                  transform-origin: left center;
+                  border-radius: 10% 50% 30% 50%;
+                  background: linear-gradient(225deg, rgba(255,255,255,0.9), rgba(168, 213, 146, 0.8));
+                  animation: flap-right 0.12s infinite alternate ease-in-out;
+                }
+                @keyframes flap-left { 
+                  0% { transform: rotateY(0deg); } 
+                  100% { transform: rotateY(65deg); } 
+                }
+                @keyframes flap-right { 
+                  0% { transform: rotateY(0deg); } 
+                  100% { transform: rotateY(-65deg); } 
+                }
+                @keyframes flyButterfly {
+                  0% { transform: translate(0, 0) translateZ(0); }
+                  20% { transform: translate(-100px, -50px) translateZ(100px); }
+                  40% { transform: translate(-50px, -150px) translateZ(20px); }
+                  60% { transform: translate(80px, -100px) translateZ(150px); }
+                  80% { transform: translate(50px, 20px) translateZ(50px); }
+                  100% { transform: translate(0, 0) translateZ(0); }
                 }
               `}} />
 
               {/* Left Content */}
-              <div className="p-10 md:p-16 flex flex-col justify-center w-full md:w-1/2 z-10 bg-gradient-to-r from-[#45583b] via-[#45583b]/95 to-transparent relative">
-                <h2 className="text-3xl md:text-5xl mb-4 font-bold text-white tracking-wide">
+              <div className="p-10 md:p-24 lg:p-32 flex flex-col justify-center w-full md:w-1/2 h-full z-10 bg-gradient-to-r from-[#45583b] via-[#45583b]/95 to-transparent relative">
+                <h2 className="text-4xl md:text-6xl lg:text-7xl mb-6 font-bold text-white tracking-tight drop-shadow-lg">
                   MUCİZE BAHÇE
                 </h2>
-                <p className="text-sm md:text-base text-[#a8d592] font-semibold mb-2">
+                <p className="text-base md:text-xl text-[#a8d592] font-semibold mb-4 tracking-wide">
                   Düzenle, dönüştür, büyüt!
                 </p>
-                <p className="text-sm md:text-base text-white/80 font-light mb-8 max-w-sm">
+                <p className="text-sm md:text-lg text-white/80 font-light mb-12 max-w-md leading-relaxed">
                   Kendi bahçeni oluştur ve sürdürülebilir bir iyileştirme kültürü inşa et.
                 </p>
                 
                 <a 
                   href="/game.html" 
                   target="_blank" 
-                  className="bg-white text-black px-8 py-4 rounded-xl font-bold tracking-[0.1em] text-xs md:text-sm transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-[0_0_30px_rgba(168,213,146,0.6)] flex items-center gap-3 w-max group"
+                  className="bg-white text-black px-10 py-5 rounded-2xl font-bold tracking-[0.15em] text-xs md:text-sm transition-all duration-300 hover:scale-105 shadow-2xl hover:shadow-[0_0_40px_rgba(168,213,146,0.5)] flex items-center gap-4 w-max group"
                 >
                   TAM EKRAN OYNA
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-12 transition-transform"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><path d="M15 13h.01"/><path d="M18 11h.01"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-12 transition-transform duration-300"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><path d="M15 13h.01"/><path d="M18 11h.01"/></svg>
                 </a>
               </div>
 
               {/* Right Image */}
-              <div className="w-full md:w-1/2 relative h-[250px] md:h-auto overflow-hidden">
+              <div className="w-full md:w-1/2 h-1/2 md:h-full relative overflow-hidden">
                 <img 
                   src="/garden.jpg" 
                   alt="Mucize Bahçe" 
-                  className="absolute inset-0 w-full h-full object-cover object-center transform scale-110 hover:scale-100 transition-transform duration-[2000ms]"
+                  className="absolute inset-0 w-full h-full object-cover object-center transform scale-110 hover:scale-100 transition-transform duration-[3000ms] ease-out"
                 />
                 {/* Gradient blend edge for seamless transition on desktop */}
-                <div className="absolute inset-0 bg-gradient-to-r from-[#45583b] to-transparent w-32 hidden md:block" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#45583b] via-[#45583b]/60 to-transparent w-48 hidden md:block" />
                 {/* Gradient blend edge for seamless transition on mobile */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#45583b] to-transparent h-16 md:hidden block" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#45583b] via-[#45583b]/80 to-transparent h-32 md:hidden block" />
               </div>
 
             </div>
