@@ -481,50 +481,92 @@ export default function Home() {
             className="max-w-xl will-change-transform will-change-opacity origin-left relative z-10"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            {/* HTML Text removed because it is baked into the uploaded background image */}
           </div>
         </section>
 
         {/* Scene 06: MUCIZE BAHCE (GAME) */}
-        <section className="h-[100vh] flex flex-col items-center justify-center text-center px-4 relative overflow-hidden">
+        <section className="h-[100vh] flex flex-col items-center justify-center px-4 md:px-24 relative overflow-hidden">
           
           <div 
-            className="absolute inset-0 transition-opacity duration-1000 z-0 bg-jantsa-black"
-            style={{ opacity: activeScene === 6 ? 1 : 0 }}
-          >
-            {activeScene >= 5 && (
-              <iframe 
-                src="/game.html" 
-                className="w-full h-full border-none pointer-events-auto opacity-100 mix-blend-screen brightness-125" 
-                title="Mucize Bahçe Game Background"
-                scrolling="no"
-              />
-            )}
-            {/* Elegant overlay to blend the game perfectly */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,10,0.95)_100%)] pointer-events-none" />
-          </div>
-
-          <div 
             ref={(el) => { sectionRefs.current[5] = el; }}
-            className="w-full flex flex-col items-center will-change-transform will-change-opacity origin-center relative z-10 pointer-events-none"
+            className="w-full max-w-5xl will-change-transform will-change-opacity relative z-10 pointer-events-auto"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <h2 className="text-5xl md:text-7xl mb-6 leading-none font-bold text-gradient drop-shadow-[0_10px_30px_rgba(0,0,0,1)]">
-              MUCİZE BAHÇE
-            </h2>
-            <p className="text-lg md:text-xl text-gray-300 mb-12 font-light drop-shadow-[0_5px_15px_rgba(0,0,0,1)] max-w-xl">
-              OPEX Oyununu oynayarak dağınıklığı düzene, düzeni alışkanlığa dönüştür.
-            </p>
-            
-            <a 
-              href="/game.html" 
-              target="_blank" 
-              className="group pointer-events-auto relative bg-white text-black px-12 py-5 rounded-full font-bold tracking-[0.2em] text-xs md:text-sm transition-all duration-500 hover:scale-110 shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(211,17,69,0.8)] hover:bg-jantsa-red hover:text-white flex items-center gap-4 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-              <span className="relative z-10">TAM EKRAN OYNA</span>
-              <span className="relative z-10 text-xl group-hover:rotate-12 group-hover:scale-125 transition-transform duration-300 ml-2">🎮</span>
-            </a>
+            {/* Banner Container */}
+            <div className="relative w-full rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row bg-[#45583b]">
+              
+              {/* Animated Butterflies Layer */}
+              <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden">
+                {[...Array(7)].map((_, i) => (
+                  <div 
+                    key={i}
+                    className="absolute w-4 h-4 md:w-5 md:h-5"
+                    style={{
+                      left: `${40 + Math.random() * 50}%`,
+                      top: `${20 + Math.random() * 60}%`,
+                      animation: `flyButterfly ${8 + Math.random() * 6}s ease-in-out infinite, flutter ${0.05 + Math.random() * 0.05}s alternate infinite`,
+                      animationDelay: `-${Math.random() * 10}s`
+                    }}
+                  >
+                    {/* SVG Butterfly */}
+                    <svg viewBox="0 0 24 24" fill="#a8d592" className="w-full h-full opacity-90 drop-shadow-lg">
+                      <path d="M12,12 C10,8 4,2 4,10 C4,14 10,12 12,12 C14,12 20,14 20,10 C20,2 14,8 12,12 Z M12,12 C10,16 4,22 4,14 C4,10 10,12 12,12 C14,12 20,10 20,14 C20,22 14,16 12,12 Z"/>
+                    </svg>
+                  </div>
+                ))}
+              </div>
+
+              {/* CSS Animations defined in a style tag */}
+              <style dangerouslySetInnerHTML={{__html: `
+                @keyframes flyButterfly {
+                  0% { transform: translate(0, 0) rotate(-10deg); }
+                  25% { transform: translate(-40px, -30px) rotate(-30deg); }
+                  50% { transform: translate(-20px, -60px) rotate(10deg); }
+                  75% { transform: translate(30px, -40px) rotate(40deg); }
+                  100% { transform: translate(0, 0) rotate(-10deg); }
+                }
+                @keyframes flutter {
+                  0% { scale: 1 1; }
+                  100% { scale: 0.1 1; }
+                }
+              `}} />
+
+              {/* Left Content */}
+              <div className="p-10 md:p-16 flex flex-col justify-center w-full md:w-1/2 z-10 bg-gradient-to-r from-[#45583b] via-[#45583b]/95 to-transparent relative">
+                <h2 className="text-3xl md:text-5xl mb-4 font-bold text-white tracking-wide">
+                  MUCİZE BAHÇE
+                </h2>
+                <p className="text-sm md:text-base text-[#a8d592] font-semibold mb-2">
+                  Düzenle, dönüştür, büyüt!
+                </p>
+                <p className="text-sm md:text-base text-white/80 font-light mb-8 max-w-sm">
+                  Kendi bahçeni oluştur ve sürdürülebilir bir iyileştirme kültürü inşa et.
+                </p>
+                
+                <a 
+                  href="/game.html" 
+                  target="_blank" 
+                  className="bg-white text-black px-8 py-4 rounded-xl font-bold tracking-[0.1em] text-xs md:text-sm transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-[0_0_30px_rgba(168,213,146,0.6)] flex items-center gap-3 w-max group"
+                >
+                  TAM EKRAN OYNA
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:rotate-12 transition-transform"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 12h4"/><path d="M8 10v4"/><path d="M15 13h.01"/><path d="M18 11h.01"/></svg>
+                </a>
+              </div>
+
+              {/* Right Image */}
+              <div className="w-full md:w-1/2 relative h-[250px] md:h-auto overflow-hidden">
+                <img 
+                  src="/garden.jpg" 
+                  alt="Mucize Bahçe" 
+                  className="absolute inset-0 w-full h-full object-cover object-center transform scale-110 hover:scale-100 transition-transform duration-[2000ms]"
+                />
+                {/* Gradient blend edge for seamless transition on desktop */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#45583b] to-transparent w-32 hidden md:block" />
+                {/* Gradient blend edge for seamless transition on mobile */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#45583b] to-transparent h-16 md:hidden block" />
+              </div>
+
+            </div>
           </div>
         </section>
       </div>
