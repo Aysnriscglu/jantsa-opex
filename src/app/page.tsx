@@ -103,6 +103,7 @@ export default function Home() {
 
   // Handle Scroll and Text Animation
   useEffect(() => {
+    let animationFrameId: number;
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
