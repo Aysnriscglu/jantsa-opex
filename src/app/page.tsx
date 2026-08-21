@@ -487,42 +487,25 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Scene 05: LIVE STATS (KOKPİT) */}
-        <section className="h-[100vh] flex items-center justify-end px-8 md:px-32 text-right">
+        {/* Scene 05: KOKPIT TOPLANTILARI */}
+        <section className="h-[100vh] flex items-center justify-start px-8 md:px-24 text-left relative overflow-hidden">
+          
+          {/* Tabletop Mockup Background Image Overlay */}
+          <div 
+            className="absolute inset-0 z-0 transition-opacity duration-1000 bg-cover bg-center pointer-events-none"
+            style={{ 
+              opacity: activeScene === 5 ? 1 : 0, 
+              backgroundImage: 'url("/kokpit-bg.png")'
+            }}
+          >
+            {/* We no longer need the text gradient because the background image has text baked in */}
+          </div>
+
           <div 
             ref={(el) => { sectionRefs.current[4] = el; }}
-            className="w-full max-w-xl will-change-transform will-change-opacity origin-right"
+            className="max-w-xl will-change-transform will-change-opacity origin-left relative z-10"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden group">
-              <div className="absolute top-6 left-6 text-6xl font-black text-white/[0.02] pointer-events-none select-none">
-                04
-              </div>
-
-              <div className="text-white text-[10px] md:text-[11px] font-bold tracking-[0.4em] mb-4 flex items-center justify-end gap-4 uppercase opacity-80">
-                Kokpit <span className="w-8 h-[1px] bg-white/70" />
-              </div>
-              <h2 className="text-2xl md:text-4xl mb-8 leading-snug">
-                <span className="font-light tracking-wide text-gray-300">CANLI</span>
-                <br />
-                <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-l from-jantsa-red to-white">PERFORMANS</span>
-              </h2>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-black/30 border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center text-center">
-                  <span ref={liveDataRef} className="text-5xl font-black text-white mb-2">0</span>
-                  <span className="text-[9px] font-semibold tracking-widest text-gray-400 uppercase">Aktif Proje</span>
-                </div>
-                
-                <div className="bg-jantsa-red/10 border border-jantsa-red/20 rounded-xl p-6 flex flex-col items-center justify-center text-center shadow-[0_0_30px_rgba(211,17,69,0.1)]">
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span ref={efficiencyRef} className="text-5xl font-black text-jantsa-red drop-shadow-[0_0_15px_rgba(211,17,69,0.5)]">0</span>
-                    <span className="text-2xl text-jantsa-red font-bold">%</span>
-                  </div>
-                  <span className="text-[9px] font-semibold tracking-widest text-jantsa-red uppercase">Verimlilik Artışı</span>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
