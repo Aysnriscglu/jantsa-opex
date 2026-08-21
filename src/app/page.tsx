@@ -285,6 +285,9 @@ export default function Home() {
           style={{ filter: 'contrast(1.08) saturate(1.15) brightness(1.05)' }} 
         />
         
+        {/* Cinematic Vignette */}
+        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
+
         {/* Cinematic Vignette Overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(10,10,10,0.9)_100%)] pointer-events-none" />
         
@@ -339,27 +342,29 @@ export default function Home() {
         <section className="h-[100vh] flex flex-col items-center justify-center text-center px-4 relative">
           <div 
             ref={(el) => { sectionRefs.current[0] = el; }} 
-            className="max-w-4xl flex flex-col items-center origin-center will-change-transform will-change-opacity"
+            className="w-full max-w-6xl flex flex-col items-center origin-center will-change-transform will-change-opacity"
             style={{ opacity: 1, transform: 'scale(1)' }}
           >
-            <div className="inline-flex items-center gap-3 px-5 py-2 mb-6 rounded-full border border-jantsa-red/40 bg-jantsa-red/10 text-jantsa-red text-[10px] md:text-[11px] font-bold tracking-[0.4em] uppercase backdrop-blur-md shadow-[0_0_30px_rgba(211,17,69,0.2)]">
-              <span className="w-2 h-2 rounded-full bg-jantsa-red animate-pulse" />
+            <div className="inline-flex items-center gap-3 px-6 py-3 mb-8 rounded-full border border-jantsa-red/40 bg-[#0a0a0a]/50 backdrop-blur-xl text-jantsa-red text-xs md:text-sm font-bold tracking-[0.5em] uppercase shadow-[0_0_40px_rgba(211,17,69,0.3)] hover:bg-jantsa-red/20 transition-colors duration-500 cursor-default">
+              <span className="w-2.5 h-2.5 rounded-full bg-jantsa-red animate-pulse shadow-[0_0_10px_rgba(211,17,69,1)]" />
               Jantsa Operasyonel Mükemmellik
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl mb-6 leading-[1.1] tracking-tighter">
-              <span className="font-light text-gradient block mb-1">FİKİRLERİNİZE</span>
-              <span className="font-bold animate-shimmer drop-shadow-[0_0_40px_rgba(255,255,255,0.25)]">DEĞER VERİYORUZ</span>
+            
+            <h1 className="text-5xl md:text-8xl lg:text-[8rem] mb-6 leading-[0.9] tracking-tighter mix-blend-screen drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)] flex flex-col items-center">
+              <span className="font-extralight text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500 block mb-2" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>FİKİRLERİNİZE</span>
+              <span className="font-black text-white animate-shimmer">DEĞER VERİYORUZ</span>
             </h1>
-            <p className="text-sm md:text-lg text-gray-300 max-w-xl font-light leading-relaxed drop-shadow-lg opacity-80">
-              Stratejik hedeflerimiz doğrultusunda, mükemmelliğe giden yolda tüm iyileştirme önerilerinizin hayat bulduğu dijital sistem.
+            
+            <p className="text-base md:text-2xl text-gray-300 max-w-3xl mt-6 font-light leading-relaxed drop-shadow-xl opacity-90 tracking-wide">
+              Stratejik hedeflerimiz doğrultusunda, mükemmelliğe giden yolda tüm iyileştirme önerilerinizin hayat bulduğu <span className="font-semibold text-white">dijital ekosistem.</span>
             </p>
           </div>
           
-          {/* Scroll Down Indicator (Premium Mouse) */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-300">
-            <span className="text-[8px] tracking-[0.5em] text-gray-400 mb-1 uppercase">Keşfet</span>
-            <div className="w-5 h-8 border-[1.5px] border-gray-400/50 rounded-full flex justify-center p-1 relative overflow-hidden">
-              <div className="w-1 h-2 bg-white rounded-full animate-bounce mt-1" />
+          {/* Scroll Down Indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-50 hover:opacity-100 transition-opacity duration-500">
+            <span className="text-[10px] tracking-[0.6em] text-white mb-2 uppercase font-medium">Kaydırarak Keşfet</span>
+            <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center p-1 relative overflow-hidden bg-black/20 backdrop-blur-sm">
+              <div className="w-1.5 h-2.5 bg-white rounded-full animate-bounce mt-1 shadow-[0_0_10px_white]" />
             </div>
           </div>
         </section>
@@ -368,30 +373,37 @@ export default function Home() {
         <section className="h-[100vh] flex items-center px-8 md:px-24">
           <div 
             ref={(el) => { sectionRefs.current[1] = el; }}
-            className="max-w-xl will-change-transform will-change-opacity origin-left"
+            className="w-full max-w-2xl will-change-transform will-change-opacity origin-left"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="text-jantsa-red text-[10px] md:text-xs font-bold tracking-[0.4em] mb-3 flex items-center gap-4">
-              <span className="w-8 h-[2px] bg-jantsa-red" /> 01. HEDEFİMİZ
-            </div>
-            <h2 className="text-3xl md:text-5xl mb-6 leading-tight transition-all duration-75">
-              <span className="font-light tracking-wide text-gray-300">SÜREKLİ İYİLEŞTİRME</span>
-              <br />
-              <span className="font-bold tracking-tight text-gradient">KÜLTÜRÜ</span>
-            </h2>
-            <p className="text-sm md:text-base text-gray-400 max-w-md mb-10 font-light leading-relaxed">
-              Çalışanlarımızın süreçlere katılımını sağlayarak aidiyeti artırıyor, bilgi birikimini şirket genelinde yaygınlaştırıyor ve pazar rekabetçiliğimizi koruyoruz.
-            </p>
-            
-            {/* OPEX Pillars Grid */}
-            <div className="grid grid-cols-2 gap-4 max-w-md">
-              {['5S SİSTEMİ', 'KAIZEN A3', '6 SIGMA', 'OTONOM BAKIM'].map((pillar, i) => (
-                <div key={i} className="premium-glass rounded-xl p-5 flex flex-col items-start justify-center group hover:-translate-y-1 hover:shadow-[0_15px_30px_rgba(0,0,0,0.8)] transition-all duration-500 cursor-default relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent rounded-bl-full transition-all duration-500 group-hover:from-jantsa-red/30" />
-                  <span className="text-xl mb-1 opacity-30 font-extralight font-mono transition-opacity duration-500 group-hover:opacity-80">0{i+1}</span>
-                  <span className="text-[10px] font-bold tracking-[0.2em] text-white/90 group-hover:text-white">{pillar}</span>
-                </div>
-              ))}
+            <div className="bg-[#050505]/60 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 md:p-14 shadow-[0_30px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden group">
+              <div className="absolute -top-40 -right-40 w-80 h-80 bg-jantsa-red/20 blur-[100px] rounded-full pointer-events-none group-hover:bg-jantsa-red/30 transition-colors duration-1000" />
+              
+              <div className="absolute top-4 right-8 text-[8rem] font-black text-white/[0.03] pointer-events-none select-none leading-none -z-10 group-hover:text-white/[0.05] transition-colors duration-1000">
+                01
+              </div>
+
+              <div className="text-jantsa-red text-[11px] md:text-sm font-bold tracking-[0.5em] mb-6 flex items-center gap-4 uppercase">
+                <span className="w-12 h-[2px] bg-gradient-to-r from-jantsa-red to-transparent" /> Hedefimiz
+              </div>
+              <h2 className="text-4xl md:text-6xl mb-8 leading-[1.1]">
+                <span className="font-extralight tracking-tight text-white/90">SÜREKLİ İYİLEŞTİRME</span>
+                <br />
+                <span className="font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">KÜLTÜRÜ</span>
+              </h2>
+              <p className="text-base md:text-lg text-gray-400 mb-12 font-light leading-relaxed">
+                Çalışanlarımızın süreçlere katılımını sağlayarak aidiyeti artırıyor, bilgi birikimini şirket genelinde yaygınlaştırıyor ve pazar rekabetçiliğimizi koruyoruz.
+              </p>
+              
+              {/* OPEX Pillars Grid */}
+              <div className="grid grid-cols-2 gap-5">
+                {['5S SİSTEMİ', 'KAIZEN A3', '6 SIGMA', 'OTONOM BAKIM'].map((pillar, i) => (
+                  <div key={i} className="bg-white/[0.03] border border-white/5 rounded-2xl p-6 flex flex-col items-start justify-center hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 cursor-default relative overflow-hidden">
+                    <span className="text-2xl mb-2 text-white/20 font-light font-mono group-hover:text-jantsa-red/50 transition-colors">0{i+1}</span>
+                    <span className="text-[11px] md:text-xs font-bold tracking-[0.25em] text-white/80">{pillar}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -400,27 +412,35 @@ export default function Home() {
         <section className="h-[100vh] flex items-center justify-end px-8 md:px-32 text-right">
           <div 
             ref={(el) => { sectionRefs.current[2] = el; }}
-            className="max-w-xl will-change-transform will-change-opacity origin-right"
+            className="w-full max-w-2xl will-change-transform will-change-opacity origin-right"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="text-jantsa-red text-[10px] md:text-xs font-bold tracking-[0.4em] mb-3 flex items-center justify-end gap-4">
-              02. YAKLAŞIMIMIZ <span className="w-8 h-[2px] bg-jantsa-red" />
-            </div>
-            <h2 className="text-3xl md:text-5xl mb-5 leading-tight transition-all duration-75">
-              <span className="font-light tracking-wide text-gray-300">İSRAFLARI YOK EDEREK</span>
-              <br />
-              <span className="font-bold tracking-tight text-white drop-shadow-[0_0_20px_rgba(211,17,69,0.3)]">DEĞER YARATIN</span>
-            </h2>
-            <p className="text-sm md:text-base text-gray-400 max-w-md ml-auto font-light leading-relaxed mb-8">
-              İş süreçlerimizde Hatalı Üretim, Bekleme, Taşıma, Fazla İşlem, Hareket, Stok, Kullanılmayan Yaratıcılık ve Fazla Üretimi ortadan kaldırıyoruz.
-            </p>
-            
-            <div className="flex flex-wrap justify-end gap-2 max-w-md ml-auto">
-              {['Hatalı Üretim', 'Bekleme', 'Taşıma', 'Fazla İşlem', 'Hareket', 'Stok', 'Yaratıcılık', 'Fazla Üretim'].map((israf, i) => (
-                <div key={i} className="bg-white/10 border border-white/30 backdrop-blur-md rounded-full px-4 py-2 text-[10px] md:text-xs font-bold tracking-widest text-white shadow-[0_5px_15px_rgba(0,0,0,0.3)] hover:bg-jantsa-red hover:border-jantsa-red hover:shadow-[0_0_20px_rgba(211,17,69,0.5)] transition-all duration-300 cursor-default hover:-translate-y-1">
-                  {israf}
-                </div>
-              ))}
+            <div className="bg-[#050505]/60 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 md:p-14 shadow-[0_30px_60px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.1)] relative overflow-hidden group">
+              <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 blur-[100px] rounded-full pointer-events-none group-hover:bg-blue-500/20 transition-colors duration-1000" />
+              
+              <div className="absolute top-4 left-8 text-[8rem] font-black text-white/[0.03] pointer-events-none select-none leading-none -z-10 group-hover:text-white/[0.05] transition-colors duration-1000">
+                02
+              </div>
+
+              <div className="text-white text-[11px] md:text-sm font-bold tracking-[0.5em] mb-6 flex items-center justify-end gap-4 uppercase">
+                Yaklaşımımız <span className="w-12 h-[2px] bg-gradient-to-l from-white to-transparent" />
+              </div>
+              <h2 className="text-4xl md:text-6xl mb-8 leading-[1.1]">
+                <span className="font-extralight tracking-tight text-white/90">İSRAFLARI YOK EDEREK</span>
+                <br />
+                <span className="font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-l from-jantsa-red via-red-400 to-white">DEĞER YARATIN</span>
+              </h2>
+              <p className="text-base md:text-lg text-gray-400 font-light leading-relaxed mb-10">
+                İş süreçlerimizde Hatalı Üretim, Bekleme, Taşıma, Fazla İşlem, Hareket, Stok, Kullanılmayan Yaratıcılık ve Fazla Üretimi ortadan kaldırıyoruz.
+              </p>
+              
+              <div className="flex flex-wrap justify-end gap-3">
+                {['Hatalı Üretim', 'Bekleme', 'Taşıma', 'Fazla İşlem', 'Hareket', 'Stok', 'Yaratıcılık', 'Fazla Üretim'].map((israf, i) => (
+                  <div key={i} className="bg-black/40 border border-white/10 backdrop-blur-md rounded-xl px-5 py-3 text-[11px] md:text-xs font-semibold tracking-widest text-white/90 hover:bg-jantsa-red hover:border-jantsa-red hover:text-white hover:scale-105 hover:shadow-[0_10px_20px_rgba(211,17,69,0.4)] transition-all duration-300 cursor-default">
+                    {israf}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
