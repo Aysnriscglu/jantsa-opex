@@ -2,13 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const FRAME_COUNT = 240;
+const FRAME_COUNT = 3;
 const SCENE_COUNT = 6;
-
-const getFramePath = (index: number) => {
-  const pad = index.toString().padStart(3, "0");
-  return "/frames/ezgif-frame-" + pad + ".jpg";
-};
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -89,21 +84,21 @@ export default function Home() {
   useEffect(() => {
     let loaded = 0;
     const images: HTMLImageElement[] = [];
-    for (let i = 1; i <= FRAME_COUNT; i++) {
+    const paths = ['/wheel-silver.jpg', '/wheel-orange.jpg', '/wheel-yellow.jpg'];
+    paths.forEach(path => {
       const img = new window.Image();
-      img.src = getFramePath(i);
+      img.src = path;
       img.onload = () => {
         loaded++;
         setImagesLoaded(loaded);
       };
       images.push(img);
-    }
+    });
     imagesRef.current = images;
   }, []);
 
   // Handle Scroll and Text Animation
   useEffect(() => {
-    let animationFrameId: number;
     const container = containerRef.current;
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
@@ -111,33 +106,64 @@ export default function Home() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const drawFrame = (frameIndex: number) => {
-      const img = imagesRef.current[frameIndex];
-      if (!img || !img.complete) return;
-
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
+    const drawWheels = (scrollFraction: number) => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      const canvasAspect = window.innerWidth / window.innerHeight;
-      const imgAspect = img.width / img.height;
+      const img0 = imagesRef.current[0];
+      const img1 = imagesRef.current[1];
+      const img2 = imagesRef.current[2];
 
-      let drawWidth, drawHeight, offsetX, offsetY;
+      if (!img0 || !img0.complete) return;
 
-      if (canvasAspect > imgAspect) {
-        drawWidth = window.innerWidth;
-        drawHeight = window.innerWidth / imgAspect;
-        offsetX = 0;
-        offsetY = (window.innerHeight - drawHeight) / 2;
+      // Fit wheel tightly to the screen vertically
+      const size = Math.min(window.innerWidth, window.innerHeight) * 0.95;
+      const x = window.innerWidth / 2;
+      const y = window.innerHeight / 2;
+
+      // 2 full spins over the entire scroll
+      const rotation = scrollFraction * Math.PI * 4;
+
+      let op0 = 0, op1 = 0, op2 = 0;
+      
+      if (scrollFraction < 0.33) {
+        op0 = 1;
+        if (scrollFraction > 0.20) {
+          op1 = (scrollFraction - 0.20) / 0.13;
+          op0 = 1 - op1;
+        }
+      } else if (scrollFraction < 0.66) {
+        op1 = 1;
+        if (scrollFraction > 0.53) {
+          op2 = (scrollFraction - 0.53) / 0.13;
+          op1 = 1 - op2;
+        }
       } else {
-        drawHeight = window.innerHeight;
-        drawWidth = window.innerHeight * imgAspect;
-        offsetX = (window.innerWidth - drawWidth) / 2;
-        offsetY = 0;
+        op2 = 1;
       }
 
-      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      const drawImg = (img: HTMLImageElement, alpha: number) => {
+        if (alpha <= 0 || !img || !img.complete) return;
+        ctx.globalAlpha = alpha;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rotation);
+        // The uploaded images have black background around the wheel, 
+        // we can use "screen" or "lighten" blend mode to ensure they blend perfectly 
+        // into the main black background without borders.
+        ctx.globalCompositeOperation = "lighten";
+        ctx.drawImage(img, -size/2, -size/2, size, size);
+        ctx.restore();
+      };
+
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      drawImg(img0, op0);
+      drawImg(img1, op1);
+      drawImg(img2, op2);
+      ctx.globalAlpha = 1.0;
     };
 
     const resizeCanvas = () => {
@@ -148,11 +174,10 @@ export default function Home() {
       canvas.style.height = window.innerHeight + "px";
       ctx.scale(dpr, dpr);
       
-      currentFrameRef.current = -1;
-      const frameIndex = Math.max(0, currentFrameRef.current);
-      if (imagesRef.current[frameIndex]?.complete) {
-        drawFrame(frameIndex);
-      }
+      const scrollY = window.scrollY || 0;
+      const maxScroll = Math.max(1, container.scrollHeight - window.innerHeight);
+      const scrollFraction = Math.max(0, Math.min(1, scrollY / maxScroll));
+      drawWheels(scrollFraction);
     };
 
     window.addEventListener("resize", resizeCanvas);
@@ -164,18 +189,8 @@ export default function Home() {
       const maxScroll = container.scrollHeight - windowHeight;
       const scrollFraction = Math.max(0, Math.min(1, scrollY / maxScroll));
 
-      // 4. Sahneye (0.8 scrollFraction) gelindiğinde video bitmiş (frame 239) olacak!
-      // Bu sayede son sahnede oyun ekranı çıkmadan hemen önce videonun en sonuna kadar yakınlaştığını göreceğiz.
-      const videoProgress = Math.min(1, scrollFraction / 0.8);
-      const frameIndex = Math.floor(videoProgress * (FRAME_COUNT - 1));
-      
-      if (frameIndex !== currentFrameRef.current) {
-        const img = imagesRef.current[frameIndex];
-        if (img && img.complete) {
-          drawFrame(frameIndex);
-          currentFrameRef.current = frameIndex;
-        }
-      }
+      // Draw the spinning wheels based on scroll percentage!
+      drawWheels(scrollFraction);
 
       // Calculate active scene for UI
       const currentSceneIndex = Math.min(
