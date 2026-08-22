@@ -391,12 +391,32 @@ export default function Home() {
                 Çalışanlarımızın süreçlere katılımını sağlayarak aidiyeti artırıyor, bilgi birikimini şirket genelinde yaygınlaştırıyor ve pazar rekabetçiliğimizi koruyoruz.
               </p>
               
-              {/* OPEX Pillars Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                {['5S SİSTEMİ', 'KAIZEN A3', '6 SIGMA', 'OTONOM BAKIM'].map((pillar, i) => (
-                  <div key={i} className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col items-start justify-center hover:bg-white/[0.05] transition-all duration-300 relative overflow-hidden">
-                    <span className="text-lg mb-1 text-white/20 font-light font-mono">0{i+1}</span>
-                    <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-300">{pillar}</span>
+              {/* Animated OPEX Pillars Accordion */}
+              <div className="flex flex-col gap-3 max-w-md w-full h-[280px]">
+                {[
+                  { title: '5S SİSTEMİ', desc: 'Çalışma alanında düzen, temizlik ve tam standartlaşma sağlayarak verimliliği artırır.' },
+                  { title: 'KAIZEN A3', desc: 'Kök neden analiziyle problem çözme ve adım adım sürekli iyileştirme döngüsü.' },
+                  { title: '6 SIGMA', desc: 'Veri odaklı yaklaşımla süreçlerdeki değişkenliği azaltıp sıfır hataya ulaşma hedefi.' },
+                  { title: 'OTONOM BAKIM', desc: 'Operatörlerin kendi ekipmanlarını sahiplenerek arızaları büyümeden önlemesi.' }
+                ].map((pillar, i) => (
+                  <div key={i} className="group relative overflow-hidden bg-white/5 backdrop-blur-md rounded-xl transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] flex-1 hover:flex-[2.5] cursor-default border border-white/10 hover:border-jantsa-red/40 hover:shadow-[0_0_20px_rgba(211,17,69,0.2)]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-jantsa-red/0 to-transparent group-hover:from-jantsa-red/10 transition-all duration-500" />
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-white/5 to-transparent rounded-bl-full transition-all duration-500 group-hover:from-jantsa-red/20 opacity-0 group-hover:opacity-100" />
+                    
+                    <div className="p-4 md:p-5 flex flex-col h-full justify-center relative z-10">
+                      <div className="flex items-center gap-4">
+                        <span className="text-xl md:text-2xl font-extralight font-mono text-gray-500 group-hover:text-jantsa-red transition-colors duration-500">0{i+1}</span>
+                        <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] text-white/90 group-hover:text-white whitespace-nowrap">{pillar.title}</span>
+                      </div>
+                      {/* Expanding Description */}
+                      <div className="grid grid-rows-[0fr] opacity-0 group-hover:grid-rows-[1fr] group-hover:opacity-100 transition-all duration-500">
+                        <div className="overflow-hidden">
+                          <p className="text-xs md:text-sm text-gray-400 font-light mt-3 pr-4 leading-relaxed">
+                            {pillar.desc}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
