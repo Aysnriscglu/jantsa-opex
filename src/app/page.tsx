@@ -282,14 +282,10 @@ export default function Home() {
         <canvas 
           ref={canvasRef} 
           className="w-full h-full"
-          style={{ filter: 'contrast(1.05) saturate(1.10) brightness(1.2)' }} 
+          style={{ filter: 'none' }} 
         />
         
-        {/* Soft Edge Vignette (Removed the heavy dark center overlays) */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]" />
-        
-        {/* Very soft gradient for text readability (Does not block video) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-jantsa-black/40 via-transparent to-transparent pointer-events-none w-full" />
+        {/* Absolutely no overlays, video is 100% raw and clear */}
       </div>
 
       {/* Fixed Navigation - Only Logo */}
