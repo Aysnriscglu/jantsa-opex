@@ -282,17 +282,14 @@ export default function Home() {
         <canvas 
           ref={canvasRef} 
           className="w-full h-full"
-          style={{ filter: 'contrast(1.08) saturate(1.15) brightness(1.05)' }} 
+          style={{ filter: 'contrast(1.05) saturate(1.10) brightness(1.2)' }} 
         />
         
-        {/* Cinematic Vignette */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.8)_100%)]" />
-
-        {/* Cinematic Vignette Overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,rgba(10,10,10,0.9)_100%)] pointer-events-none" />
+        {/* Soft Edge Vignette (Removed the heavy dark center overlays) */}
+        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]" />
         
-        {/* Gradient for text readability on the left */}
-        <div className="absolute inset-0 bg-gradient-to-r from-jantsa-black via-jantsa-black/60 to-transparent pointer-events-none w-[80%]" />
+        {/* Very soft gradient for text readability (Does not block video) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-jantsa-black/40 via-transparent to-transparent pointer-events-none w-full" />
       </div>
 
       {/* Fixed Navigation - Only Logo */}
