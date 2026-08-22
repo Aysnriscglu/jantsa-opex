@@ -260,51 +260,42 @@ export default function Home() {
   }, []);
 
   return (
-    <main ref={containerRef} className="relative w-full bg-gray-50 text-gray-900 selection:bg-jantsa-red selection:text-white cursor-default" style={{ height: "600vh" }}>
+    <main ref={containerRef} className="relative w-full bg-black text-white selection:bg-jantsa-red selection:text-white cursor-default" style={{ height: "600vh" }}>
       
-      {/* Cinematic Loading Screen */}
+      {/* Loading Overlay */}
       {imagesLoaded < FRAME_COUNT && (
-        <div className="fixed inset-0 z-50 bg-gray-50 flex flex-col items-center justify-center text-gray-900 transition-opacity duration-1000 ease-in-out"
-             style={{ opacity: imagesLoaded >= FRAME_COUNT ? 0 : 1 }}>
-          <div className="text-4xl md:text-6xl font-black tracking-tighter mb-4">
-            <span className="text-gray-900">JANTSA</span>
-            <span className="text-jantsa-red">OPEX</span>
-          </div>
-          <div className="w-64 h-[2px] bg-gray-200 rounded-full overflow-hidden mb-4">
+        <div className="fixed inset-0 z-[100] bg-jantsa-black flex flex-col items-center justify-center text-white transition-opacity duration-500">
+          <div className="w-48 h-1 bg-gray-800 rounded-full overflow-hidden mb-4">
             <div 
               className="h-full bg-jantsa-red transition-all duration-300 ease-out"
               style={{ width: ((imagesLoaded / FRAME_COUNT) * 100) + '%' }}
             />
           </div>
-          <div className="text-xs font-bold tracking-[0.2em] animate-pulse text-gray-500">
+          <div className="text-xs font-bold tracking-[0.2em] animate-pulse">
             SİSTEM BAŞLATILIYOR...
           </div>
         </div>
       )}
 
       {/* Fixed Canvas Background */}
-      <div id="canvas-wrapper" className="fixed top-0 left-0 w-full h-[100vh] z-0 bg-white transition-all duration-700 ease-out">
+      <div id="canvas-wrapper" className="fixed top-0 left-0 w-full h-[100vh] z-0 bg-jantsa-black transition-all duration-700 ease-out">
         <canvas 
           ref={canvasRef} 
           className="w-full h-full"
           style={{ filter: 'none' }} 
         />
         
-        {/* Light Theme Video Overlay (Makes the dark video look bright, silvery, and Apple-like) */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-br from-white/70 via-white/40 to-transparent backdrop-blur-[2px]" />
-        
-        {/* Very soft white edge vignette */}
-        <div className="fixed inset-0 pointer-events-none z-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(255,255,255,0.7)_100%)]" />
+        {/* Absolutely no overlays, video is 100% raw and clear */}
       </div>
 
       {/* Fixed Navigation - Only Logo */}
-      <div className="fixed top-8 left-10 z-50 flex flex-col font-black tracking-[0.2em] text-lg leading-none cursor-pointer drop-shadow-md">
-        <span className="text-gray-900">JANTSA</span>
+      <div className="fixed top-8 left-10 z-50 flex flex-col font-black tracking-[0.2em] text-lg leading-none cursor-pointer drop-shadow-2xl">
+        <span className="text-white">JANTSA</span>
         <span className="text-jantsa-red mt-1">OPEX</span>
       </div>
 
       {/* Right Side Progress Navigation */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 text-[10px] font-bold tracking-[0.2em] w-32 drop-shadow-md">
+      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 text-[10px] font-bold tracking-[0.2em] mix-blend-difference w-32">
         {[
           { id: 1, label: 'OPEX NEDİR?' },
           { id: 2, label: 'HEDEFİMİZ' },
@@ -324,14 +315,14 @@ export default function Home() {
             }}
             className="cursor-pointer group flex flex-col"
           >
-            <div className={`transition-colors duration-500 mb-1 ${activeScene === item.id ? 'text-gray-900' : 'text-gray-400 group-hover:text-gray-600'}`}>
+            <div className={`transition-colors duration-500 mb-1 ${activeScene === item.id ? 'text-white' : 'text-gray-600 group-hover:text-gray-400'}`}>
               0{item.id}
             </div>
             <div className="flex items-center">
-              <span className={`transition-colors duration-500 whitespace-nowrap ${activeScene === item.id ? 'text-jantsa-red' : 'text-gray-400 group-hover:text-gray-600'}`}>
+              <span className={`transition-colors duration-500 whitespace-nowrap ${activeScene === item.id ? 'text-jantsa-red' : 'text-gray-600 group-hover:text-gray-400'}`}>
                 {item.label}
               </span>
-              <div className={`transition-all duration-700 h-[2px] ml-4 bg-jantsa-red ${activeScene === item.id ? 'w-12 shadow-[0_0_10px_rgba(211,17,69,0.5)]' : 'w-0'}`} />
+              <div className={`transition-all duration-700 h-[2px] ml-4 bg-jantsa-red ${activeScene === item.id ? 'w-12 shadow-[0_0_15px_rgba(211,17,69,1)]' : 'w-0'}`} />
             </div>
           </div>
         ))}
@@ -350,26 +341,26 @@ export default function Home() {
             className="w-full max-w-4xl flex flex-col items-center origin-center will-change-transform will-change-opacity"
             style={{ opacity: 1, transform: 'scale(1)' }}
           >
-            <div className="inline-flex items-center gap-3 px-6 py-2.5 mb-8 rounded-full border border-jantsa-red/20 bg-white/60 backdrop-blur-md text-jantsa-red text-[10px] md:text-xs font-bold tracking-[0.4em] uppercase shadow-[0_10px_30px_rgba(211,17,69,0.1)]">
+            <div className="inline-flex items-center gap-3 px-6 py-2.5 mb-8 rounded-full border border-jantsa-red/30 bg-[#0a0a0a]/40 backdrop-blur-md text-jantsa-red text-[10px] md:text-xs font-semibold tracking-[0.4em] uppercase shadow-[0_0_30px_rgba(211,17,69,0.2)]">
               <span className="w-1.5 h-1.5 rounded-full bg-jantsa-red animate-pulse" />
               Jantsa Operasyonel Mükemmellik
             </div>
             
-            <h1 className="text-4xl md:text-6xl mb-6 leading-tight tracking-tight flex flex-col items-center">
-              <span className="font-light text-gray-800 block mb-1 drop-shadow-md">FİKİRLERİNİZE</span>
-              <span className="font-black text-gray-900 drop-shadow-lg">DEĞER VERİYORUZ</span>
+            <h1 className="text-4xl md:text-6xl mb-6 leading-tight tracking-tight drop-shadow-2xl flex flex-col items-center">
+              <span className="font-light text-gray-300 block mb-1">FİKİRLERİNİZE</span>
+              <span className="font-bold text-white animate-shimmer">DEĞER VERİYORUZ</span>
             </h1>
             
-            <p className="text-sm md:text-lg text-gray-700 max-w-xl mt-4 font-medium leading-relaxed drop-shadow-sm bg-white/40 px-6 py-3 rounded-2xl backdrop-blur-sm border border-white/50">
-              Stratejik hedeflerimiz doğrultusunda, mükemmelliğe giden yolda tüm iyileştirme önerilerinizin hayat bulduğu dijital ekosistem.
+            <p className="text-sm md:text-lg text-gray-400 max-w-xl mt-4 font-light leading-relaxed drop-shadow-md">
+              Stratejik hedeflerimiz doğrultusunda, mükemmelliğe giden yolda tüm iyileştirme önerilerinizin hayat bulduğu <span className="font-medium text-gray-200">dijital ekosistem.</span>
             </p>
           </div>
           
           {/* Scroll Down Indicator */}
-          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-70 hover:opacity-100 transition-opacity duration-500">
-            <span className="text-[9px] tracking-[0.4em] text-gray-800 mb-1 uppercase font-bold drop-shadow-md">Kaydırarak Keşfet</span>
-            <div className="w-5 h-8 border-[1.5px] border-gray-800 rounded-full flex justify-center p-1 relative overflow-hidden bg-white/50 backdrop-blur-sm shadow-lg">
-              <div className="w-1 h-2 bg-jantsa-red rounded-full animate-bounce mt-1" />
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity duration-500">
+            <span className="text-[9px] tracking-[0.4em] text-gray-400 mb-1 uppercase font-light">Kaydırarak Keşfet</span>
+            <div className="w-5 h-8 border border-white/20 rounded-full flex justify-center p-1 relative overflow-hidden bg-black/10 backdrop-blur-sm">
+              <div className="w-1 h-2 bg-white rounded-full animate-bounce mt-1" />
             </div>
           </div>
         </section>
@@ -381,31 +372,31 @@ export default function Home() {
             className="w-full max-w-xl will-change-transform will-change-opacity origin-left"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-3xl p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.1)] relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-jantsa-red/5 blur-[80px] rounded-full pointer-events-none transition-colors duration-1000" />
+            <div className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-jantsa-red/10 blur-[80px] rounded-full pointer-events-none transition-colors duration-1000" />
               
-              <div className="absolute top-6 right-6 text-6xl font-black text-gray-900/[0.03] pointer-events-none select-none">
+              <div className="absolute top-6 right-6 text-6xl font-black text-white/[0.02] pointer-events-none select-none">
                 01
               </div>
 
               <div className="text-jantsa-red text-[10px] md:text-[11px] font-bold tracking-[0.4em] mb-4 flex items-center gap-4 uppercase">
-                <span className="w-8 h-[2px] bg-jantsa-red" /> Hedefimiz
+                <span className="w-8 h-[1px] bg-jantsa-red/70" /> Hedefimiz
               </div>
               <h2 className="text-2xl md:text-4xl mb-6 leading-snug">
-                <span className="font-light tracking-wide text-gray-600">SÜREKLİ İYİLEŞTİRME</span>
+                <span className="font-light tracking-wide text-gray-300">SÜREKLİ İYİLEŞTİRME</span>
                 <br />
-                <span className="font-extrabold text-gray-900">KÜLTÜRÜ</span>
+                <span className="font-semibold text-white">KÜLTÜRÜ</span>
               </h2>
-              <p className="text-sm md:text-base text-gray-600 mb-8 font-medium leading-relaxed">
+              <p className="text-sm md:text-base text-gray-400 mb-8 font-light leading-relaxed">
                 Çalışanlarımızın süreçlere katılımını sağlayarak aidiyeti artırıyor, bilgi birikimini şirket genelinde yaygınlaştırıyor ve pazar rekabetçiliğimizi koruyoruz.
               </p>
               
               {/* OPEX Pillars Grid */}
               <div className="grid grid-cols-2 gap-4">
                 {['5S SİSTEMİ', 'KAIZEN A3', '6 SIGMA', 'OTONOM BAKIM'].map((pillar, i) => (
-                  <div key={i} className="bg-gray-50/50 border border-gray-200/50 rounded-xl p-4 flex flex-col items-start justify-center hover:bg-white hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-                    <span className="text-lg mb-1 text-gray-300 font-bold font-mono group-hover:text-jantsa-red/20">0{i+1}</span>
-                    <span className="text-[10px] font-bold tracking-[0.2em] text-gray-800">{pillar}</span>
+                  <div key={i} className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col items-start justify-center hover:bg-white/[0.05] transition-all duration-300 relative overflow-hidden">
+                    <span className="text-lg mb-1 text-white/20 font-light font-mono">0{i+1}</span>
+                    <span className="text-[10px] font-semibold tracking-[0.2em] text-gray-300">{pillar}</span>
                   </div>
                 ))}
               </div>
@@ -420,28 +411,28 @@ export default function Home() {
             className="w-full max-w-xl will-change-transform will-change-opacity origin-right"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-3xl p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.1)] relative overflow-hidden group">
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/5 blur-[80px] rounded-full pointer-events-none transition-colors duration-1000" />
+            <div className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden group">
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 blur-[80px] rounded-full pointer-events-none transition-colors duration-1000" />
               
-              <div className="absolute top-6 left-6 text-6xl font-black text-gray-900/[0.03] pointer-events-none select-none">
+              <div className="absolute top-6 left-6 text-6xl font-black text-white/[0.02] pointer-events-none select-none">
                 02
               </div>
 
-              <div className="text-jantsa-red text-[10px] md:text-[11px] font-bold tracking-[0.4em] mb-4 flex items-center justify-end gap-4 uppercase">
-                Yaklaşımımız <span className="w-8 h-[2px] bg-jantsa-red" />
+              <div className="text-white text-[10px] md:text-[11px] font-bold tracking-[0.4em] mb-4 flex items-center justify-end gap-4 uppercase opacity-80">
+                Yaklaşımımız <span className="w-8 h-[1px] bg-white/70" />
               </div>
               <h2 className="text-2xl md:text-4xl mb-6 leading-snug">
-                <span className="font-light tracking-wide text-gray-600">İSRAFLARI YOK EDEREK</span>
+                <span className="font-light tracking-wide text-gray-300">İSRAFLARI YOK EDEREK</span>
                 <br />
-                <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-l from-jantsa-red to-red-500">DEĞER YARATIN</span>
+                <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-l from-jantsa-red to-white">DEĞER YARATIN</span>
               </h2>
-              <p className="text-sm md:text-base text-gray-600 font-medium leading-relaxed mb-8">
+              <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed mb-8">
                 İş süreçlerimizde Hatalı Üretim, Bekleme, Taşıma, Fazla İşlem, Hareket, Stok, Kullanılmayan Yaratıcılık ve Fazla Üretimi ortadan kaldırıyoruz.
               </p>
               
               <div className="flex flex-wrap justify-end gap-2">
                 {['Hatalı Üretim', 'Bekleme', 'Taşıma', 'Fazla İşlem', 'Hareket', 'Stok', 'Yaratıcılık', 'Fazla Üretim'].map((israf, i) => (
-                  <div key={i} className="bg-gray-100/80 border border-gray-200 backdrop-blur-md rounded-lg px-3 py-2 text-[10px] font-bold tracking-wide text-gray-700 hover:bg-jantsa-red hover:text-white hover:border-jantsa-red transition-all duration-300 shadow-sm">
+                  <div key={i} className="bg-black/30 border border-white/5 backdrop-blur-md rounded-lg px-3 py-2 text-[10px] font-medium tracking-wide text-gray-300 hover:bg-jantsa-red hover:text-white transition-all duration-300 cursor-default">
                     {israf}
                   </div>
                 ))}
@@ -457,31 +448,31 @@ export default function Home() {
             className="w-full max-w-xl will-change-transform will-change-opacity origin-left"
             style={{ opacity: 0, transform: 'translateY(50px)' }}
           >
-            <div className="bg-white/80 backdrop-blur-2xl border border-white/60 rounded-3xl p-8 md:p-10 shadow-[0_30px_60px_rgba(0,0,0,0.1)] relative overflow-hidden group">
+            <div className="bg-[#080808]/50 backdrop-blur-xl border border-white/5 rounded-2xl p-8 md:p-10 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-jantsa-red/5 to-transparent pointer-events-none opacity-50 transition-opacity duration-1000" />
               
-              <div className="absolute top-6 right-6 text-6xl font-black text-gray-900/[0.03] pointer-events-none select-none">
+              <div className="absolute top-6 right-6 text-6xl font-black text-white/[0.02] pointer-events-none select-none">
                 03
               </div>
 
               <div className="text-jantsa-red text-[10px] md:text-[11px] font-bold tracking-[0.4em] mb-4 flex items-center gap-4 uppercase">
-                <span className="w-8 h-[2px] bg-jantsa-red" /> Sistemimiz
+                <span className="w-8 h-[1px] bg-jantsa-red/70" /> Sistemimiz
               </div>
               <h2 className="text-2xl md:text-4xl mb-6 leading-snug">
-                <span className="font-light tracking-wide text-gray-600">BAŞARIYI</span>
+                <span className="font-light tracking-wide text-gray-300">BAŞARIYI</span>
                 <br />
-                <span className="font-extrabold text-gray-900">ÖDÜLLENDİRİYORUZ</span>
+                <span className="font-semibold text-white">ÖDÜLLENDİRİYORUZ</span>
               </h2>
-              <p className="text-sm md:text-base text-gray-600 font-medium leading-relaxed mb-8">
+              <p className="text-sm md:text-base text-gray-400 font-light leading-relaxed mb-8">
                 Tüm çalışanların ulaşabileceği OPEX veri tabanına önerilerinizi ekleyin. İş güvenliği, kalite artışı ve enerji tasarrufu gibi konulardaki fikirleriniz size ödül olarak geri dönsün.
               </p>
 
-              <div className="bg-gray-50/80 border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-center relative overflow-hidden group/reward hover:bg-white hover:shadow-xl transition-all duration-300 cursor-default">
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-jantsa-red to-red-600 flex items-center justify-center mb-4 shadow-[0_10px_20px_rgba(211,17,69,0.2)]">
+              <div className="bg-white/[0.02] border border-white/5 rounded-xl p-6 flex flex-col items-center justify-center relative overflow-hidden group/reward hover:bg-white/[0.05] transition-all duration-300 cursor-default">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-jantsa-red to-red-600 flex items-center justify-center mb-4 shadow-[0_0_30px_rgba(211,17,69,0.3)]">
                   <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
                 </div>
-                <h3 className="text-sm font-bold tracking-widest text-gray-900 mb-2">ÖNERİ & ÖDÜL</h3>
-                <p className="text-xs text-center text-gray-500 font-medium">
+                <h3 className="text-sm font-bold tracking-widest text-white mb-2">ÖNERİ & ÖDÜL</h3>
+                <p className="text-xs text-center text-gray-400 font-light">
                   İyileştirme önerileriniz değerlendirilir ve katkılarınız her ay sonunda ödüllendirilir.
                 </p>
               </div>
